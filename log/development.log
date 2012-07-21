@@ -46,3 +46,44 @@ ActiveRecord::ConnectionNotEstablished (ActiveRecord::ConnectionNotEstablished):
   Rendered /Users/gterrono/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.6ms)
   Rendered /Users/gterrono/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (4.9ms)
   Rendered /Users/gterrono/.rvm/gems/ruby-1.9.2-p290/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (19.5ms)
+
+
+Started GET "/assets/rails.png" for 127.0.0.1 at 2012-07-21 15:16:33 -0700
+Connecting to database specified by database.yml
+Served asset /rails.png - 200 OK (43ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-07-21 15:23:08 -0700
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (6.7ms)
+Compiled home.css  (91ms)  (pid 15789)
+Compiled application.css  (115ms)  (pid 15789)
+Compiled jquery.js  (1ms)  (pid 15789)
+Compiled jquery_ujs.js  (0ms)  (pid 15789)
+Compiled home.js  (364ms)  (pid 15789)
+Compiled application.js  (435ms)  (pid 15789)
+Completed 200 OK in 724ms (Views: 723.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-21 15:23:09 -0700
+Served asset /application.css - 200 OK (3ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2012-07-21 15:23:09 -0700
+Served asset /home.css - 200 OK (3ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-21 15:23:09 -0700
+Served asset /jquery.js - 200 OK (17ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-21 15:23:09 -0700
+Served asset /jquery_ujs.js - 200 OK (1ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-07-21 15:23:09 -0700
+Served asset /home.js - 200 OK (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 15:23:09 -0700
+Served asset /application.js - 200 OK (4ms)
