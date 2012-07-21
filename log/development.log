@@ -87,3 +87,4 @@ Served asset /home.js - 200 OK (1ms)
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 15:23:09 -0700
 Served asset /application.js - 200 OK (4ms)
+Connecting to database specified by database.yml
