@@ -6,6 +6,10 @@
 	margin: auto;
 }
 
+#notif-close{
+  background-color: #DFF0D8;
+}
+
 .hidden{
   display: none;
 }
