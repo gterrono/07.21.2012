@@ -1,4 +1,6 @@
 Orderup::Application.routes.draw do
+  resources :places
+
   resources :users
 
   root :to => 'home#index'
