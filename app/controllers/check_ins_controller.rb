@@ -3,6 +3,7 @@ class CheckInsController < ApplicationController
   # GET /check_ins.json
   def index
     @check_ins = CheckIn.all
+    @places = Place.all
 
     respond_to do |format|
       format.html # index.html.erb

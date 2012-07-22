@@ -25,7 +25,7 @@ class RequestsController < ApplicationController
   # GET /requests/new.json
   def new
     @request = Request.new
-
+    @request.address = User.find(params['user']).addresses[0]
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @request }

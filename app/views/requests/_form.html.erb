@@ -11,14 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user %><br />
-    <%= f.text_field :user %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
-  </div>
+  <%= f.hidden_field :user, :value => params["user"] %>
+  <%= f.hidden_field :check_in, :value => params["id"] %>
+  <%= f.hidden_field :address, :value => @request.address.id %>
+
   <div class="field">
     <%= f.label :order %><br />
     <%= f.text_field :order %>
@@ -31,10 +27,7 @@
     <%= f.label :payment %><br />
     <%= f.text_field :payment %>
   </div>
-  <div class="field">
-    <%= f.label :check_in %><br />
-    <%= f.text_field :check_in %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -70,17 +70,6 @@ ActiveRecord::Schema.define(:version => 20120722024554) do
 
   add_index "responses", ["request_id"], :name => "index_responses_on_request_id"
 
-  create_table "transactions", :force => true do |t|
-    t.integer  "from_id"
-    t.integer  "to_id"
-    t.decimal  "amount"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "transactions", ["from_id"], :name => "index_transactions_on_from_id"
-  add_index "transactions", ["to_id"], :name => "index_transactions_on_to_id"
-
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "name"
