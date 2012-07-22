@@ -39,11 +39,20 @@
 	float: right;
 }
 
+
 #crazy-map{
 	height: 552px;
 	width: 900px;
 	border-radius: 10px;
 }
+
+#crazy-map img {
+  max-width: none;
+}
+
+#crazy-map label { 
+  width: auto; display:inline; 
+} 
 
 #newsfeed-title{
 	text-align: center;

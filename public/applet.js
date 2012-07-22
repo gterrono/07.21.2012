@@ -2,13 +2,14 @@ MapApplet = (function(){
     var loc, map;
     var markers = {};
     var curOverlay = undefined;
+    var m;
 
     function init() {
 
 	loc = new google.maps.LatLng(37.762861, -122.401078);
 	var mapOptions = {
             center: loc,
-            zoom: 16,
+            zoom: 13,
             //mapTypeId: google.maps.MapTypeId.HYBRID
             mapTypeId: google.maps.MapTypeId.ROADMAP
             //mapTypeId: google.maps.MapTypeId.SATELLITE
@@ -16,11 +17,17 @@ MapApplet = (function(){
 	};
 
 	map = new google.maps.Map($("#crazy-map")[0], mapOptions);
+	m = new google.maps.Marker({
+	    position: loc,
+	    map: map,
+	    title: "Your Location"
+	    //shape: new google.maps.MarkerShape({fillColor:'green'})
+	});
     }
 
     function addLocation(placeData){
 	var loc = new google.maps.LatLng(placeData.lat, placeData.lon);
-	var loc_off = new google.maps.LatLng(placeData.lat+0.0006, placeData.lon);
+	var loc_off = new google.maps.LatLng(placeData.lat+0.00000, placeData.lon);
 	var opts = {
 	    position: loc,
 	    map: map,
