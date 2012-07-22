@@ -18,12 +18,12 @@ MapApplet = (function(){
 	};
 
 	map = new google.maps.Map($("#crazy-map")[0], mapOptions);
-	m = new google.maps.Marker({
-	    position: loc,
-	    map: map,	    
-	    title: "Your Location",
-	    shape: new google.maps.MarkerShape({fillColor:'green'})
-	});
+	// m = new google.maps.Marker({
+	//     position: loc,
+	//     map: map,	    
+	//     title: "Your Location",
+	//     shape: {type: 'circle'}
+	// });
     }
 
     function addLocation(placeData){
