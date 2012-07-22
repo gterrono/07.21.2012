@@ -40,8 +40,10 @@ class CheckInsController < ApplicationController
   # POST /check_ins
   # POST /check_ins.json
   def create
-    @check_in = CheckIn.new(params[:check_in])
-
+    @check_in = CheckIn.new(:time_staying => params[:check_in][:time_staying], 
+      :fee => params[:check_in][:fee])
+    @check_in.user = User.find(params[:check_in][:user])
+    @check_in.place = Place.find(params[:check_in][:place])
     respond_to do |format|
       if @check_in.save
         format.html { redirect_to @check_in, notice: 'Check in was successfully created.' }
