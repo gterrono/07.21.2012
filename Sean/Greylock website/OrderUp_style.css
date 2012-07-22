@@ -1,0 +1,67 @@
+#body-div{
+	position:relative;
+	z-index: 10;
+	height: 900px;
+	background: #333;
+}
+
+#newsfeed{
+	background: #DDD;
+	height: 800px;
+	z-index: 10;
+	float: left;
+	width: 400px;
+	background-image:url('light_noise.png');
+	overflow: auto;
+}
+
+#crazy-map{
+	height: 800px;
+	width: 1000px;
+	background-image:url('crazy-map.png');
+	z-index: 1;
+	margin: auto;
+	border-radius: 10px;
+	position: absolute;
+	left:400px;
+}
+
+#newsfeed-title{
+	text-align: center;
+	padding: 10px;
+}
+
+.newsfeed-item{
+	height: 80px;
+	margin: 20px;
+	padding: 20px;
+	background: white;
+	border-radius: 10px;
+}
+
+.newsfeed-text{
+	padding-top: auto;
+	padding-bottom: auto;
+	padding-left:10px;
+	line-height: 12px;
+}
+
+.order-button{
+	display: inline;
+	vertical-align: middle;
+}
+
+.newfeed-button-div{
+	display: inline;
+	float: right;
+}
+
+.newsfeed-text-div{
+	float: left;
+}
+
+#table-div{
+	float: left;
+}
+
+
