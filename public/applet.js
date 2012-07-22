@@ -47,10 +47,7 @@ MapApplet = (function(){
     function computeOverlayContent(placeData){
 	var s = '<div class="overlay">';
 	s += '<div id="overlay-title">'+placeData.name+'</div>';
-	s += '<div id="overlay-user">User: '+placeData.user+'</div>';
-	s += '<div id="overlay-fee">Delivery Fee: $'+placeData.fee+'</div>';
-	s += '<a style="cursor: pointer" onClick="javascript:order_up('+placeData.id+')">Order Up</a></td>';
-	//s += '<a href="requests/new?id='+placeData.id+'">Order Up</a>';
+	s += '<a href="order?id='+placeData.id+'">Place Order</a>';
 	s += '</div>';
 	return s;
     }
@@ -60,35 +57,6 @@ MapApplet = (function(){
 	addLocation: addLocation
     };
 })();
-
-
-function order_up(id){
-    post_to_url('requests/new', {id: id, user: user_id}, "get");
-}
-
-function post_to_url(path, params, method) {
-    method = method || "post"; // Set method to post by default, if not specified.
-
-    // The rest of this code assumes you are not using a library.
-    // It can be made less wordy if you use one.
-    var form = document.createElement("form");
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-
-    for(var key in params) {
-        if(params.hasOwnProperty(key)) {
-            var hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", params[key]);
-
-            form.appendChild(hiddenField);
-        }
-    }
-
-    document.body.appendChild(form);
-    form.submit();
-}
 
 
 window.onload = function(){
