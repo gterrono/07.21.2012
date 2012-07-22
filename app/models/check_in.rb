@@ -10,11 +10,16 @@ class CheckIn < ActiveRecord::Base
     id = "{\"id\":"+self.id.to_s
     created_at = ",\"created_at\":\""+self.created_at.to_s
     updated_at = "\",\"updated_at\":\""+self.updated_at.to_s
-    fee = "\",\"fee\":\""+self.fee.to_s
-    time_staying = "\",\"time_staying\":\""+self.time_staying.to_s
-    user = "\",\"user\":\""+self.user.name
-    name = "\",\"name\":\""+self.place.name+"\"}"
 
-    id + created_at + updated_at + fee + time_staying + user + name
+    place_id = "\",\"place_id\":\""+self.place.place_id.to_s
+    name = "\",\"name\":\""+self.place.name.to_s
+    lat = "\",\"lat\":\""+self.place.lat.to_s
+    lon = "\",\"lon\":\""+self.place.long.to_s
+    time_staying = "\",\"time_staying\":\""+(self.time_staying.to_i*60).to_s
+    posted = "\",\"posted\":\""+self.updated_at.to_i.to_s
+    user = "\",\"user\":\""+self.user.name.to_s
+    fee = "\",\"fee\":\""+self.fee.to_s
+
+    id + created_at + updated_at + place_id + name + lat + lon + time_staying + posted + user + fee +"\"}"
   end
 end

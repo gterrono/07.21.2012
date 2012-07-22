@@ -33,6 +33,12 @@ MapApplet = (function(){
 	google.maps.event.addListener(marker, 'click', function(){openOverlay(overlay)});
     }
 
+    function placeAllMarkers(data){
+	for(var i in data){
+	    MapApplet.addLocation(data[i]);
+	}
+    }
+
     function openOverlay(overlay){
 	closeOverlays();
 	overlay.open(map);
@@ -58,7 +64,8 @@ MapApplet = (function(){
 
     return {
 	init: init,
-	addLocation: addLocation
+	addLocation: addLocation,
+	placeAllMarkers: placeAllMarkers
     };
 })();
 
@@ -108,12 +115,16 @@ function post_to_url(path, params, method) {
     form.submit();
 }
 
+function getTime(){
+    return Math.floor(new Date().getTime()/1000);
+}
+
 function update_time_staying_counters(){
-    var time = Math.floor(new Date().getTime()/1000);
+    var time = getTime();
     for(var i in data){
 	var checkin = data[i];
 	var $elem = $("#time-staying-id"+checkin.id);
-	var timeLeft = (checkin.posted + checkin.time_staying) - time;
+	var timeLeft = (parseInt(checkin.posted) + parseInt(checkin.time_staying)) - time;
 	if(timeLeft < 0){
 	    $("#check-in-id"+checkin.id).fadeOut(20);
 	} else {
@@ -123,12 +134,71 @@ function update_time_staying_counters(){
     }
 }
 
+function dispatch_checkins_request(){
+    $.ajax({url:'check_ins.json', 
+	    contentType: 'text/json', 
+	    success: checkins_request_success,
+	    failure: function(errMsg){
+		console.log("Request Failed", errMsg);
+	    }});
+}
+
+function checkins_request_success(response){
+    console.log("Response Success", response);
+    var html = [];
+    for(var i in response){
+	if(checkin_valid(response[i]))
+	    html.push(generate_checkin_listing(response[i]));
+    }
+    $("#checkins").html(html.join(''));
+    data = response;
+    MapApplet.placeAllMarkers(data);
+    update_time_staying_counters();
+}
+
+String.prototype.format = function() {
+    var formatted = this;
+    for(arg in arguments) {
+        formatted = formatted.replace("{" + arg + "}", arguments[arg]);
+    }
+    return formatted;
+};
+
+function generate_checkin_listing(checkin){
+   var listing = '<div id="check-in-id{0}" class="newsfeed-item">'
+	+ '<div id="table-div">'
+	+ '<table class="table">'
+	+ '<tr>'
+	+ '<td>{1} is at {2}</td>'
+	+ '</tr>'
+	+ '<tr>'
+	+ '<td id="time-staying-id{3}"></td>'
+	+ '<td>${4}</td>'
+	+ '<td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up({5})">OrderUp</button></td>'
+	+ '</tr>'
+	+ '</table>'
+	+ '</div>'
+	+ '</div>';
+
+    return listing.format(checkin.id, checkin.user, checkin.name, checkin.id, checkin.fee, checkin.id);
+}
+
+function checkin_valid(checkin){
+    var time = getTime();
+    console.log("time", time);
+    console.log("posted", checkin.posted);
+    console.log("staying", checkin.time_staying);
+    var timeLeft = (parseInt(checkin.posted) + parseInt(checkin.time_staying)) - time;
+    console.log(timeLeft);
+    return timeLeft >= 0;
+}
+
 window.onload = function(){
     //$("#myModal").modal({backdrop: true});
     update_time_staying_counters();
     setInterval(update_time_staying_counters, 1000);
+    dispatch_checkins_request();
+    setTimeout(dispatch_checkins_request, 2000);
     MapApplet.init()
-    for(var i in data){
-	MapApplet.addLocation(data[i]);
-    }
+    MapApplet.placeAllMarkers(data);
 }
