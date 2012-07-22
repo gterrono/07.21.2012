@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120722020025) do
+ActiveRecord::Schema.define(:version => 20120722024554) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street_address"
@@ -59,6 +59,16 @@ ActiveRecord::Schema.define(:version => 20120722020025) do
   add_index "requests", ["address_id"], :name => "index_requests_on_address_id"
   add_index "requests", ["check_in_id"], :name => "index_requests_on_check_in_id"
   add_index "requests", ["user_id"], :name => "index_requests_on_user_id"
+
+  create_table "responses", :force => true do |t|
+    t.integer  "request_id"
+    t.boolean  "accepted"
+    t.string   "message"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "responses", ["request_id"], :name => "index_responses_on_request_id"
 
   create_table "transactions", :force => true do |t|
     t.integer  "from_id"
