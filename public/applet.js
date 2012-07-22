@@ -182,7 +182,7 @@ function update_time_staying_counters(){
 	if(timeLeft < 0){
 	    $("#check-in-id"+checkin.id).fadeOut(20);
 	} else {
-	    var s = new Date(timeLeft*1000).toTimeString().substring(0,8)
+	    var s = new Date(timeLeft*1000).toTimeString().substring(3,8)
 	    $elem.html(s);
 	}
     }
