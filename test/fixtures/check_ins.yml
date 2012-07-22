@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  time_staying: 1
+  place: 
+  fee: 9.99
+
+two:
+  user: 
+  time_staying: 1
+  place: 
+  fee: 9.99

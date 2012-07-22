@@ -1,9 +1,11 @@
 Orderup::Application.routes.draw do
+  resources :check_ins
+
   resources :places
 
   resources :users
 
-  root :to => 'home#index'
+  root :to => 'CheckIns#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
