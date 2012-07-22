@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Orderup</title>
+  <link href="/assets/application.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/addresses.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/check_ins.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/home.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/places.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/requests.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/responses.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/scaffolds.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/users.css?body=1" media="all" rel="stylesheet" type="text/css" />
+  <script src="/assets/jquery.js?body=1" type="text/javascript"></script>
+<script src="/assets/jquery_ujs.js?body=1" type="text/javascript"></script>
+<script src="/assets/addresses.js?body=1" type="text/javascript"></script>
+<script src="/assets/check_ins.js?body=1" type="text/javascript"></script>
+<script src="/assets/home.js?body=1" type="text/javascript"></script>
+<script src="/assets/places.js?body=1" type="text/javascript"></script>
+<script src="/assets/requests.js?body=1" type="text/javascript"></script>
+<script src="/assets/responses.js?body=1" type="text/javascript"></script>
+<script src="/assets/users.js?body=1" type="text/javascript"></script>
+<script src="/assets/application.js?body=1" type="text/javascript"></script>
+  <meta content="authenticity_token" name="csrf-param" />
+<meta content="qO/Jq+s1GhgJmVlm2PF9Ax5yjUXWCIBUBZjYV7kvmXQ=" name="csrf-token" />
+</head>
+<body>
+
+<head>
+  <script type="text/javascript", src="jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <script type="text/javascript" src="applet.js" ></script>
+  <!-- <style type="text/css"> -->
+  <!--   html { height: 100% } -->
+  <!--   body { height: 100%; margin: 0; padding: 0 } -->
+  <!--   #map_canvas { height: 100% } -->
+  <!-- </style> -->
+  
+  <!-- <SCRIPT TYPE="text/javascript"> -->
+  <!--   $('#myModal').modal('show') -->
+  <!-- </SCRIPT> -->
+  
+  <title>OrderUp</title>
+  <link rel="stylesheet" type="text/css" href="OrderUp_style.css" />
+  <link rel="stylesheet" type="text/css" href="bootstrap.css" />
+  
+</head>
+
+<body>
+<div id="body-div">
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+	<ul class="nav">
+	    <li class="active"><a href="#">Home</a></li>
+	    </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal hide" id="myModal">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Modal header</h3>
+    </div>
+    <div class="modal-body">
+      <p>One fine body…</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+      <a href="#" class="btn btn-primary">Save changes</a>
+    </div>
+  </div>
+
+  
+  <div id="newsfeed">
+    <h2 id="newsfeed-title"> Newsfeed </h2>
+
+
+    <div class="newsfeed-item">
+      <div id="table-div">
+	<table class="table">
+	    <tr>
+	          <td>Idiot is at Fun Time Charlies</td>
+		    </tr>
+	      <tr>
+		    <td>45 mins</td>
+		        <td>$43.0</td>
+			    <td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up(1)">OrderUp</button></td>
+			      </tr>
+	      </table>
+      </div>
+    </div>
+
+    <div class="newsfeed-item">
+      <div id="table-div">
+	<table class="table">
+	    <tr>
+	          <td>Idiot is at Crud Eats</td>
+		    </tr>
+	      <tr>
+		    <td>67 mins</td>
+		        <td>$98.0</td>
+			    <td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up(2)">OrderUp</button></td>
+			      </tr>
+	      </table>
+      </div>
+    </div>
+
+
+    <div class="newsfeed-item">
+      <div id="table-div">
+	<table class="table">
+	    <tr>
+	          <td>Idiot is at Crud Eats</td>
+		    </tr>
+	      <tr>
+		    <td>67 mins</td>
+		        <td>$98.0</td>
+			    <td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up(2)">OrderUp</button></td>
+			      </tr>
+	      </table>
+      </div>
+    </div>
+
+
+    <div class="newsfeed-item">
+      <div id="table-div">
+	<table class="table">
+	    <tr>
+	          <td>Idiot is at Crud Eats</td>
+		    </tr>
+	      <tr>
+		    <td>67 mins</td>
+		        <td>$98.0</td>
+			    <td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up(2)">OrderUp</button></td>
+			      </tr>
+	      </table>
+      </div>
+    </div>
+
+    <div class="newsfeed-item">
+      <div id="table-div">
+	<table class="table">
+	    <tr>
+	          <td>Idiot is at Crud Eats</td>
+		    </tr>
+	      <tr>
+		    <td>67 mins</td>
+		        <td>$98.0</td>
+			    <td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up(2)">OrderUp</button></td>
+			      </tr>
+	      </table>
+      </div>
+    </div>
+
+    <div class="newsfeed-item">
+      <div id="table-div">
+	<table class="table">
+	    <tr>
+	          <td>Idiot is at Crud Eats</td>
+		    </tr>
+	      <tr>
+		    <td>67 mins</td>
+		        <td>$98.0</td>
+			    <td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up(2)">OrderUp</button></td>
+			      </tr>
+	      </table>
+      </div>
+    </div>
+
+
+  </div>
+  <div id="crazy-map">
+  </div>
+</div>
+</body>
+
+<script type="text/javascript">
+data = []
+data.push({
+ id: 1,
+ place_id: "34",
+ name: "Fun Time Charlies",
+ lat: 37.762861,
+ lon: -122.401078,
+ time_staying: 45,
+ user: "Idiot",
+ fee: 43.0
+});
+data.push({
+ id: 2,
+ place_id: "67",
+ name: "Crud Eats",
+ lat: 37.762961,
+ lon: -122.402078,
+ time_staying: 67,
+ user: "Idiot",
+ fee: 98.0
+});
+data.push({
+ id: 2,
+ place_id: "67",
+ name: "Crud Eats",
+ lat: 37.762961,
+ lon: -122.402078,
+ time_staying: 67,
+ user: "Idiot",
+ fee: 98.0
+});
+data.push({
+ id: 2,
+ place_id: "67",
+ name: "Crud Eats",
+ lat: 37.762961,
+ lon: -122.402078,
+ time_staying: 67,
+ user: "Idiot",
+ fee: 98.0
+});
+user_id=1;
+</script>
+
+</body>
+</html>
