@@ -19,7 +19,7 @@
   
 </head>
 
-<body>
+<body style="background-image:url('linen.png')">
 
 
   <div class="modal hide fade in" id="myModal">
@@ -27,43 +27,31 @@
   </div>
   
 
-<div id="body-div">
-
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="container">
-	<ul class="nav">
-	  <li class="active"><a href="#">Home</a></li>
-	</ul>
-      </div>
-    </div>
+<div>
+  <img id="logo" src="orderup_logo2.png">
+  <div id="container">
+    <div id="newsfeed">
+      <h2 id="newsfeed-title"> New Orders </h2>
+      <div id="checkins">
+      <% @check_ins.each do |check_in| %>
+        <div class="newsfeed-item">
+          <span class="item-title"><%= check_in.user.name %> is at <%= check_in.place.name %></span>
+          <br>
+          <br>
+          <span class="item-text item-time"><%= check_in.time_staying %> mins</span>
+          <button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up(<%= check_in.id %>)">OrderUp</button>
+          <span class="item-text item-price">$<%= check_in.fee %></span>
+        </div>
+      <% end %>
+    </div></div>
   </div>
 
-  <div id="newsfeed">
-    <h2 id="newsfeed-title"> Newsfeed </h2>
-
-    <div id="checkins">
-
-    <% @check_ins.each do |check_in| %>
-    <div id="check-in-id<%= check_in.id %>" class="newsfeed-item">
-      <div id="table-div">
-	<table class="table">
-	  <tr>
-	    <td><%= check_in.user.name %> is at <%= check_in.place.name %></td>
-	  </tr>
-	  <tr>
-	    <td id="time-staying-id<%= check_in.id %>"></td>
-	    <td>$<%= check_in.fee %></td>
-	    <td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up(<%= check_in.id %>)">OrderUp</button></td>
-	  </tr>
-	</table>
-      </div>
+  <div id="map-container">
+    <div id="crazy-map">
     </div>
-    <% end %>
     </div>
 </div>
 
-  <div id="crazy-map">
   </div>
 </div>
 </body>
@@ -77,8 +65,7 @@ data.push({
  name: "<%= check_in.place.name %>",
  lat: <%= check_in.place.lat %>,
  lon: <%= check_in.place.long %>,
- time_staying: <%= check_in.time_staying*60 %>,
- posted: <%= check_in.updated_at.to_i %>,
+ time_staying: <%= check_in.time_staying %>,
  user: "<%= check_in.user.name %>",
  fee: <%= check_in.fee %>
 });
