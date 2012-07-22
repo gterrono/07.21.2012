@@ -40,7 +40,12 @@ class RequestsController < ApplicationController
   # POST /requests
   # POST /requests.json
   def create
-    @request = Request.new(params[:request])
+    @request = Request.new(:order => params[:request][:order],
+      :details => params[:request][:details],
+      :payment => params[:request][:payment])
+    @request.user = User.find(params[:request][:user])
+    @request.address = Address.find(params[:request][:address])
+    @request.check_in = CheckIn.find(params[:request][:check_in])
 
     respond_to do |format|
       if @request.save
