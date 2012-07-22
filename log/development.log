@@ -1141,3 +1141,4 @@ Migrating to CreateAddresses (20120722013835)
  AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
  ORDER BY i.relname
 [0m
+Connecting to database specified by database.yml

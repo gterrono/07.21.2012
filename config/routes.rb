@@ -1,4 +1,6 @@
 Orderup::Application.routes.draw do
+  resources :requests
+
   resources :addresses
 
   resources :check_ins
