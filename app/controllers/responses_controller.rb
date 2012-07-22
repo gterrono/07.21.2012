@@ -40,7 +40,9 @@ class ResponsesController < ApplicationController
   # POST /responses
   # POST /responses.json
   def create
-    @response = Response.new(params[:response])
+    @response = Response.new(:accepted => params[:response][:accepted],
+      :message => params[:response][:message])
+    @response.request = Request.find(params[:response][:request])
 
     respond_to do |format|
       if @response.save
