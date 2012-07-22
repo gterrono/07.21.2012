@@ -122,6 +122,8 @@ MapApplet = (function(){
 
 function order_up(id){
     c = JSON.parse($('#check-in-'+id).find('#json').html());
+    $('#order').val('');
+    $('#details').val('');
     $('#payment').val(c.fee);
     $('#modal-user').val(c.user_id);
     $('#modal-address').val(c.address_id);
@@ -138,7 +140,7 @@ function submit_order(){
     var post_data = {
       request: {
         order: $("#order").val(),
-        details: '',
+        details: $('#details').val(),
         payment: $("#payment").val(),
         user: $("#modal-user").val(),
         check_in: $("#modal-checkin").val(),
