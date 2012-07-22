@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @request.user %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @request.address %>
+</p>
+
+<p>
+  <b>Order:</b>
+  <%= @request.order %>
+</p>
+
+<p>
+  <b>Details:</b>
+  <%= @request.details %>
+</p>
+
+<p>
+  <b>Payment:</b>
+  <%= @request.payment %>
+</p>
+
+<p>
+  <b>Check in:</b>
+  <%= @request.check_in %>
+</p>
+
+
+<%= link_to 'Edit', edit_request_path(@request) %> |
+<%= link_to 'Back', requests_path %>

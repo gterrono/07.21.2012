@@ -18,3 +18,7 @@ _yardoc
 doc/
 
 *.swp
+
+log/development.log
+*~
+\#*#

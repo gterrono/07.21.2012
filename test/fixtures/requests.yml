@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  address: 
+  order: MyString
+  details: MyString
+  payment: 9.99
+  check_in: 
+
+two:
+  user: 
+  address: 
+  order: MyString
+  details: MyString
+  payment: 9.99
+  check_in: 

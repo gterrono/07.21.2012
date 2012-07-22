@@ -1,8 +1,10 @@
 class CheckInsController < ApplicationController
+
   # GET /check_ins
   # GET /check_ins.json
   def index
     @check_ins = CheckIn.all
+    @places = Place.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -40,8 +42,13 @@ class CheckInsController < ApplicationController
   # POST /check_ins
   # POST /check_ins.json
   def create
-    @check_in = CheckIn.new(params[:check_in])
-
+    place = Place.find_or_create_by_place_id_and_name_and_lat_and_long(
+      params[:place_id], params[:place_name], params[:place_lat],
+      params[:place_long])
+    @check_in = CheckIn.new(:time_staying => params[:time_staying], 
+      :fee => params[:fee])
+    @check_in.user = User.find(params[:user])
+    @check_in.place = place
     respond_to do |format|
       if @check_in.save
         format.html { redirect_to @check_in, notice: 'Check in was successfully created.' }
