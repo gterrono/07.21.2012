@@ -138,10 +138,24 @@ function order_up(id){
     $("#myModal").modal('show');
 }
 
+function get_response(requestId) {
+    $.get('requests/'+requestId+'/responses.json', function(data){
+      if(data.length<1 || data[0]===null){
+        setTimeout(get_response(requestId), 3000);
+      }else{
+        console.log(data);
+        if(data[0].accepted){
+          displayNotification();
+        }else{
+          displayBadNotification();
+        }
+      }
+    });
+}
+
 function submit_order(){
     $("#myModal").modal('hide');
     getNotificationPermission();
-    setTimeout(displayNotification, 5000);
     var post_data = {
       request: {
         order: $("#order").val(),
@@ -153,7 +167,7 @@ function submit_order(){
       }
     };
 
-    $.post('/requests.json', post_data, function(data){$('#notification').fadeIn(1000);});
+    $.post('/requests.json', post_data, function(data){$('#notification').fadeIn(1000); get_response(data.id);});
 }
 
 function post_to_url(path, params, method) {
@@ -292,6 +306,17 @@ function displayNotification() {
     } else {
 	notification = window.webkitNotifications.createNotification(
             '', 'Your Order Request', 'Was accepted!');
+	notification.show();
+    }
+};
+
+function displayBadNotification() {
+    if (window.webkitNotifications.checkPermission() != 0) { // 0 is PERMISSION_ALLOWED
+	getNotificationPermission();
+	setTimeout(displayBadNotification, 5000);
+    } else {
+	notification = window.webkitNotifications.createNotification(
+            '', 'Your Order Request', 'Was rejected!');
 	notification.show();
     }
 };

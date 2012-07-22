@@ -15,6 +15,8 @@ Orderup::Application.routes.draw do
 
   match 'check_ins/:check_in_id/requests' => 'Requests#index'
 
+  match 'requests/:request_id/responses' => 'Responses#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

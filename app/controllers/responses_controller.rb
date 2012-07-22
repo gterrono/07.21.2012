@@ -2,7 +2,11 @@ class ResponsesController < ApplicationController
   # GET /responses
   # GET /responses.json
   def index
-    @responses = Response.all
+    if params[:request_id]
+      @responses = [Request.find(params[:request_id]).response]
+    else
+      @responses = Response.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
