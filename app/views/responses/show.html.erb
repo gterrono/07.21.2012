@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Request:</b>
+  <%= @response.request %>
+</p>
+
+<p>
+  <b>Accepted:</b>
+  <%= @response.accepted %>
+</p>
+
+<p>
+  <b>Message:</b>
+  <%= @response.message %>
+</p>
+
+
+<%= link_to 'Edit', edit_response_path(@response) %> |
+<%= link_to 'Back', responses_path %>

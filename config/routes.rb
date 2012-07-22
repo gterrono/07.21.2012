@@ -1,4 +1,6 @@
 Orderup::Application.routes.draw do
+  resources :responses
+
   resources :requests
 
   resources :addresses
