@@ -229,9 +229,12 @@ function checkins_request_success(response){
     for(var i in goodData){
 	var placeData = goodData[i];
 	var $elem = $("#check-in-id"+placeData.id);
-	$elem.hover(function(){
-	    MapApplet.focusOn(placeData);
-	});
+	$elem.click((function(){
+	    var placeData = goodData[i];
+	    return function(){		
+		MapApplet.focusOn(placeData);
+	    }
+	})());
     }
 }
 
