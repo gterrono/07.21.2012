@@ -269,7 +269,7 @@ function generate_checkin_listing(checkin){
         + '<span class="item-text item-price">${4}</span>'
         + '</div>'
 
-    return listing.format(checkin.id, checkin.user, checkin.name, checkin.id, checkin.fee, checkin.id, JSON.stringify(checkin));
+    return listing.format(checkin.id, checkin.user, checkin.name, checkin.id, parseFloat(checkin.fee).toFixed(2), checkin.id, JSON.stringify(checkin));
 }
 
 function checkin_valid(checkin){
