@@ -1,4 +1,4 @@
-<h1>Listing check_ins</h1>
+<h1>OrderUp!</h1>
 
 <table>
   <tr>
@@ -13,9 +13,9 @@
 
 <% @check_ins.each do |check_in| %>
   <tr>
-    <td><%= check_in.user %></td>
+    <td><%= check_in.user.name %></td>
     <td><%= check_in.time_staying %></td>
-    <td><%= check_in.place %></td>
+    <td><%= check_in.place.name %></td>
     <td><%= check_in.fee %></td>
     <td><%= link_to 'Show', check_in %></td>
     <td><%= link_to 'Edit', edit_check_in_path(check_in) %></td>
