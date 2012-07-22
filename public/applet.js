@@ -3,6 +3,7 @@ MapApplet = (function(){
     var curOverlay = undefined;
 
     function init() {
+
 	loc = new google.maps.LatLng(37.762861, -122.401078);
 	var mapOptions = {
             center: loc,
@@ -63,7 +64,23 @@ MapApplet = (function(){
 
 
 function order_up(id){
-    post_to_url('requests/new', {id: id, user: user_id}, "get");
+    $("#modal-user").val(user_id);
+    $("#modal-checkin").val(id);
+    $("#myModal").modal('show');
+    //post_to_url('requests/new', {id: id, user: user_id}, "get");
+}
+
+function submit_order(){
+    $("#myModal").modal('hide');
+    var post_data = {
+	user: $("#modal-user").val(),
+	check_in: $("#modal-checkin").val(),
+	order: $("#modal-order").val(),
+	details: $("#modal-details").val(),
+	payment: $("#modal-payment").val()
+    };
+
+    post_to_url('requests', post_data);
 }
 
 function post_to_url(path, params, method) {
@@ -92,6 +109,7 @@ function post_to_url(path, params, method) {
 
 
 window.onload = function(){
+    //$("#myModal").modal({backdrop: true});
     MapApplet.init()
     for(var i in data){
 	MapApplet.addLocation(data[i]);
