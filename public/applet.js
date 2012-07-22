@@ -44,7 +44,6 @@ MapApplet = (function(){
     }
 
     function focusOn(placeData){
-	console.log("focusing on", placeData);
 	map.panTo(new google.maps.LatLng(placeData.lat+0, placeData.lon+0));
 	google.maps.event.trigger(markers[placeData.id], 'click');
     }
@@ -63,8 +62,6 @@ MapApplet = (function(){
     // }
 
     function updateMarkers(newMarkerData){
-	console.log("new", newMarkerData);
-	console.log("old", markers);
 	var oldMarkers = $.extend({}, markers);
 	var newMarkers = [];
 	for(var i in newMarkerData){
@@ -207,12 +204,10 @@ function dispatch_checkins_request(){
 	    contentType: 'text/json', 
 	    success: checkins_request_success,
 	    failure: function(errMsg){
-		console.log("Request Failed", errMsg);
 	    }});
 }
 
 function checkins_request_success(response){
-    console.log("Response Success", response);
     var html = [];
     //MapApplet.clearAllMarkers(data);
     var goodData = [];
@@ -279,18 +274,13 @@ function generate_checkin_listing(checkin){
 
 function checkin_valid(checkin){
     var time = getTime();
-    console.log("time", time);
-    console.log("posted", checkin.posted);
-    console.log("staying", checkin.time_staying);
     var timeLeft = (parseInt(checkin.posted) + parseInt(checkin.time_staying)) - time;
-    console.log(timeLeft);
     return timeLeft >= 0;
 }
 
 
 function getNotificationPermission(){
     if (window.webkitNotifications.checkPermission() != 0) { // 0 is PERMISSION_ALLOWED
-	console.log("requesting...");
 	window.webkitNotifications.requestPermission();
     }
 }
