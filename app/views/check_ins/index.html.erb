@@ -32,6 +32,7 @@
   <div id="container">
     <div id="newsfeed">
       <h2 id="newsfeed-title"> New Orders </h2>
+      <div id="checkins">
       <% @check_ins.each do |check_in| %>
         <div class="newsfeed-item">
           <span class="item-title"><%= check_in.user.name %> is at <%= check_in.place.name %></span>
@@ -42,11 +43,13 @@
           <span class="item-text item-price">$<%= check_in.fee %></span>
         </div>
       <% end %>
-    </div>
+    </div></div>
   </div>
+
   <div id="map-container">
     <div id="crazy-map">
     </div>
+
   </div>
 </div>
 </body>

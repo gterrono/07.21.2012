@@ -9,7 +9,7 @@ class CheckInsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @check_ins }
+      format.json { render json: "["+@check_ins.map {|r| r.to_json}.join(",")+"]"}
     end
   end
 
