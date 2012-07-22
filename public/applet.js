@@ -33,6 +33,12 @@ MapApplet = (function(){
 	google.maps.event.addListener(marker, 'click', function(){openOverlay(overlay)});
     }
 
+    function placeAllMarkers(data){
+	for(var i in data){
+	    MapApplet.addLocation(data[i]);
+	}
+    }
+
     function openOverlay(overlay){
 	closeOverlays();
 	overlay.open(map);
@@ -58,7 +64,8 @@ MapApplet = (function(){
 
     return {
 	init: init,
-	addLocation: addLocation
+	addLocation: addLocation,
+	placeAllMarkers: placeAllMarkers
     };
 })();
 
@@ -116,7 +123,7 @@ function update_time_staying_counters(){
     for(var i in data){
 	var checkin = data[i];
 	var $elem = $("#time-staying-id"+checkin.id);
-	var timeLeft = (checkin.posted + checkin.time_staying) - time;
+	var timeLeft = (parseInt(checkin.posted) + parseInt(checkin.time_staying)) - time;
 	if(timeLeft < 0){
 	    $("#check-in-id"+checkin.id).fadeOut(20);
 	} else {
@@ -143,6 +150,8 @@ function checkins_request_success(response){
 	    html.push(generate_checkin_listing(response[i]));
     }
     $("#checkins").html(html.join(''));
+    data = response;
+    MapApplet.placeAllMarkers(data);
     update_time_staying_counters();
 }
 
@@ -162,20 +171,24 @@ function generate_checkin_listing(checkin){
 	+ '<td>{1} is at {2}</td>'
 	+ '</tr>'
 	+ '<tr>'
-	+ '<td id="time-staying-id{0}"></td>'
-	+ '<td>${3}</td>'
-	+ '<td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up({1})">OrderUp</button></td>'
+	+ '<td id="time-staying-id{3}"></td>'
+	+ '<td>${4}</td>'
+	+ '<td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up({5})">OrderUp</button></td>'
 	+ '</tr>'
 	+ '</table>'
 	+ '</div>'
 	+ '</div>';
 
-    return listing.format(checkin.id, checkin.user, checkin.name, checkin.fee);
+    return listing.format(checkin.id, checkin.user, checkin.name, checkin.id, checkin.fee, checkin.id);
 }
 
 function checkin_valid(checkin){
     var time = getTime();
-    var timeLeft = (checkin.posted + checkin.time_staying) - time;
+    console.log("time", time);
+    console.log("posted", checkin.posted);
+    console.log("staying", checkin.time_staying);
+    var timeLeft = (parseInt(checkin.posted) + parseInt(checkin.time_staying)) - time;
+    console.log(timeLeft);
     return timeLeft >= 0;
 }
 
@@ -183,9 +196,8 @@ window.onload = function(){
     //$("#myModal").modal({backdrop: true});
     update_time_staying_counters();
     setInterval(update_time_staying_counters, 1000);
-    setInterval(dispatch_checkins_request, 2000);
+    dispatch_checkins_request();
+    setTimeout(dispatch_checkins_request, 2000);
     MapApplet.init()
-    for(var i in data){
-	MapApplet.addLocation(data[i]);
-    }
+    MapApplet.placeAllMarkers(data);
 }
