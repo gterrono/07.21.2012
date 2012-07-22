@@ -130,7 +130,7 @@ function order_up(id){
     $('#order').val('');
     $('#details').val('');
     $('#payment').val(c.fee);
-    $('#modal-user').val(c.user_id);
+    $('#modal-user').val(3);
     $('#modal-address').val(c.address_id);
     $("#modal-checkin").val(id);
     $('#address-name').html('<option>'+c.address_name+'</option>');
