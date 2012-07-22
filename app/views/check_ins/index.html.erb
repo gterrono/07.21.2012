@@ -44,14 +44,14 @@
 
 
     <% @check_ins.each do |check_in| %>
-    <div class="newsfeed-item">
+    <div id="check-in-id<%= check_in.id %>" class="newsfeed-item">
       <div id="table-div">
 	<table class="table">
 	  <tr>
 	    <td><%= check_in.user.name %> is at <%= check_in.place.name %></td>
 	  </tr>
 	  <tr>
-	    <td><%= check_in.time_staying %> mins</td>
+	    <td id="time-staying-id<%= check_in.id %>"></td>
 	    <td>$<%= check_in.fee %></td>
 	    <td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up(<%= check_in.id %>)">OrderUp</button></td>
 	  </tr>
@@ -75,7 +75,8 @@ data.push({
  name: "<%= check_in.place.name %>",
  lat: <%= check_in.place.lat %>,
  lon: <%= check_in.place.long %>,
- time_staying: <%= check_in.time_staying %>,
+ time_staying: <%= check_in.time_staying*60 %>,
+ posted: <%= check_in.updated_at.to_i %>,
  user: "<%= check_in.user.name %>",
  fee: <%= check_in.fee %>
 });
