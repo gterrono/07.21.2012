@@ -139,7 +139,7 @@ function submit_order(){
       }
     };
 
-    $.post('/requests.json', post_data, function(data){alert('your order has been sent')});
+    $.post('/requests.json', post_data, function(data){$('#notification').fadeIn(1000);});
 }
 
 function post_to_url(path, params, method) {
