@@ -71,9 +71,13 @@ MapApplet = (function(){
 
 
 function order_up(id){
-    c = JSON.parse($('#check-in-'+id).html());
-    $("#modal-user").val(user_id);
+    c = JSON.parse($('#check-in-'+id).find('#json').html());
+    $('#payment').val(c.fee);
+    $('#modal-user').val(c.user_id);
+    $('#modal-address').val(c.address_id);
     $("#modal-checkin").val(id);
+    $('#address-name').html('<option>'+c.address_name+'</option>');
+    $('#deliverer').html(c.user);
     $("#myModal").modal('show');
     //post_to_url('requests/new', {id: id, user: user_id}, "get");
 }
@@ -81,14 +85,18 @@ function order_up(id){
 function submit_order(){
     $("#myModal").modal('hide');
     var post_data = {
-	user: $("#modal-user").val(),
-	check_in: $("#modal-checkin").val(),
-	order: $("#modal-order").val(),
-	details: $("#modal-details").val(),
-	payment: $("#modal-payment").val()
+      request: {
+        order: $("#order").val(),
+        details: '',
+        payment: $("#payment").val(),
+        user: $("#modal-user").val(),
+        check_in: $("#modal-checkin").val(),
+        address: $('#modal-address').val()
+      }
     };
 
-    post_to_url('requests', post_data);
+    $.post('/requests.json', post_data);
+//    post_to_url('requests', post_data);
 }
 
 function post_to_url(path, params, method) {
@@ -180,16 +188,19 @@ function generate_checkin_listing(checkin){
    // 	+ '</div>'
    // 	+ '</div>';
 
-    var listing = '<div id="check-in-id{0}" class="newsfeed-item">'
+    var listing = '<div id="check-in-{0}" class="newsfeed-item">'
+        + '<div id="json" class="hidden">'
+        + '{6}'
+        + '</div>'
         + '<span class="item-title">{1} is at {2}</span>'
         + '<br>'
         + '<br>'
         + '<span class="item-text item-time" id="time-staying-id{3}"></span>'
         + '<button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up({5})">OrderUp</button>'
         + '<span class="item-text item-price">${4}</span>'
-	+ '</div>'
+        + '</div>'
 
-    return listing.format(checkin.id, checkin.user, checkin.name, checkin.id, checkin.fee, checkin.id);
+    return listing.format(checkin.id, checkin.user, checkin.name, checkin.id, checkin.fee, checkin.id, JSON.stringify(checkin));
 }
 
 function checkin_valid(checkin){
