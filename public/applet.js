@@ -6,10 +6,11 @@ MapApplet = (function(){
 
     function init() {
 
-	loc = new google.maps.LatLng(37.762861, -122.401078);
+	loc = new google.maps.LatLng(37.762861, -122.442078);
 	var mapOptions = {
             center: loc,
             zoom: 13,
+	    panControl: true,
             //mapTypeId: google.maps.MapTypeId.HYBRID
             mapTypeId: google.maps.MapTypeId.ROADMAP
             //mapTypeId: google.maps.MapTypeId.SATELLITE
@@ -19,9 +20,9 @@ MapApplet = (function(){
 	map = new google.maps.Map($("#crazy-map")[0], mapOptions);
 	m = new google.maps.Marker({
 	    position: loc,
-	    map: map,
-	    title: "Your Location"
-	    //shape: new google.maps.MarkerShape({fillColor:'green'})
+	    map: map,	    
+	    title: "Your Location",
+	    shape: new google.maps.MarkerShape({fillColor:'green'})
 	});
     }
 
@@ -42,8 +43,13 @@ MapApplet = (function(){
 	markers[placeData.id] = marker;
     }
 
+    function focusOn(placeData){
+	console.log("focusing on", placeData);
+	map.panTo(new google.maps.LatLng(placeData.lat+0, placeData.lon+0));
+	google.maps.event.trigger(markers[placeData.id], 'click');
+    }
+
     function placeAllMarkers(data){
-	clearAllMarkers();
 	for(var i in data){
 	    MapApplet.addLocation(data[i]);
 	}
@@ -115,7 +121,9 @@ MapApplet = (function(){
     return {
 	init: init,
 	addLocation: addLocation,
-	updateMarkers: updateMarkers
+	updateMarkers: updateMarkers,
+	placeAllMarkers: placeAllMarkers,
+	focusOn: focusOn
     };
 })();
 
@@ -216,6 +224,13 @@ function checkins_request_success(response){
     MapApplet.updateMarkers(goodData);
     data = response;
     update_time_staying_counters();
+    for(var i in goodData){
+	var placeData = goodData[i];
+	var $elem = $("#check-in-id"+placeData.id);
+	$elem.hover(function(){
+	    MapApplet.focusOn(placeData);
+	});
+    }
 }
 
 String.prototype.format = function() {
@@ -242,7 +257,7 @@ function generate_checkin_listing(checkin){
    // 	+ '</div>'
    // 	+ '</div>';
 
-    var listing = '<div id="check-in-{0}" class="newsfeed-item">'
+    var listing = '<div id="check-in-id{0}" class="newsfeed-item">'
         + '<div id="json" class="hidden">'
         + '{6}'
         + '</div>'
