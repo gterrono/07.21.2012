@@ -2,7 +2,11 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-    @requests = Request.all
+    if params[:check_in_id]
+      @requests = CheckIn.find(params[:check_in_id]).requests
+    else
+      @requests = Request.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
