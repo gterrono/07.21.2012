@@ -2525,3 +2525,712 @@ Served asset /users.js - 200 OK (0ms)
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 21:55:05 -0700
 Served asset /application.js - 200 OK (0ms)
+
+
+Started POST "/check_ins.json" for 127.0.0.1 at 2012-07-21 22:30:53 -0700
+Connecting to database specified by database.yml
+Processing by CheckInsController#create as JSON
+  Parameters: {"user"=>"1", "time_staying"=>"5", "place_id"=>"22", "place_name"=>"Chipotle", "place_lat"=>"49.5", "place_long"=>"84.5", "fee"=>"5.5"}
+  [1m[36mPlace Load (41.3ms)[0m  [1mSELECT "places".* FROM "places" WHERE "places"."place_id" = '22' AND "places"."name" = 'Chipotle' AND "places"."lat" = '49.5' AND "places"."long" = '84.5' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (43.5ms)[0m  [1mINSERT INTO "places" ("created_at", "lat", "long", "name", "place_id", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Sun, 22 Jul 2012 05:30:55 UTC +00:00], ["lat", #<BigDecimal:7fe771d87628,'0.495E2',18(18)>], ["long", #<BigDecimal:7fe771d8ad50,'0.845E2',18(18)>], ["name", "Chipotle"], ["place_id", "22"], ["updated_at", Sun, 22 Jul 2012 05:30:55 UTC +00:00]]
+  [1m[35m (14.7ms)[0m  COMMIT
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (16.6ms)[0m  [1mINSERT INTO "check_ins" ("created_at", "fee", "place_id", "time_staying", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Sun, 22 Jul 2012 05:30:55 UTC +00:00], ["fee", #<BigDecimal:7fe76e894970,'0.55E1',18(18)>], ["place_id", 3], ["time_staying", 5], ["updated_at", Sun, 22 Jul 2012 05:30:55 UTC +00:00], ["user_id", 1]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Completed 201 Created in 318ms (Views: 1.4ms | ActiveRecord: 136.7ms)
+
+
+Started GET "/check_ins" for 127.0.0.1 at 2012-07-21 22:31:23 -0700
+Processing by CheckInsController#index as HTML
+  [1m[36mCheckIn Load (0.4ms)[0m  [1mSELECT "check_ins".* FROM "check_ins" [0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mPlace Load (0.4ms)[0m  [1mSELECT "places".* FROM "places" WHERE "places"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "places".* FROM "places" WHERE "places"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mPlace Load (0.4ms)[0m  [1mSELECT "places".* FROM "places" WHERE "places"."id" = 3 LIMIT 1[0m
+  Rendered check_ins/index.html.erb within layouts/application (41.6ms)
+Completed 200 OK in 759ms (Views: 756.1ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /application.css - 304 Not Modified (12ms)
+
+
+Started GET "/assets/addresses.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /addresses.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/check_ins.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /check_ins.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/places.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /places.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/requests.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /requests.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /home.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/responses.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /responses.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /scaffolds.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /users.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /jquery.js - 304 Not Modified (20ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/addresses.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /addresses.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/check_ins.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /check_ins.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /home.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/places.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /places.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/requests.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /requests.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/responses.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /responses.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /users.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:24 -0700
+Served asset /application.js - 304 Not Modified (8ms)
+
+
+Started GET "/places" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (0.5ms)[0m  SELECT "places".* FROM "places" 
+  Rendered places/index.html.erb within layouts/application (3.4ms)
+Completed 200 OK in 22ms (Views: 20.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /addresses.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /places.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /check_ins.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /requests.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /responses.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /users.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /addresses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /check_ins.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /places.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /requests.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /responses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 22:31:42 -0700
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/check_ins.json" for 127.0.0.1 at 2012-07-21 22:32:01 -0700
+Processing by CheckInsController#create as JSON
+  Parameters: {"user"=>"1", "time_staying"=>"5", "place_id"=>"22", "place_name"=>"Chipotle", "place_lat"=>"49.5", "place_long"=>"84.5", "fee"=>"5.5"}
+WARNING: Can't verify CSRF token authenticity
+  [1m[36mPlace Load (6.4ms)[0m  [1mSELECT "places".* FROM "places" WHERE "places"."place_id" = '22' AND "places"."name" = 'Chipotle' AND "places"."lat" = '49.5' AND "places"."long" = '84.5' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", "1"]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "check_ins" ("created_at", "fee", "place_id", "time_staying", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Sun, 22 Jul 2012 05:32:02 UTC +00:00], ["fee", #<BigDecimal:7fe771d534b8,'0.55E1',18(18)>], ["place_id", 3], ["time_staying", 5], ["updated_at", Sun, 22 Jul 2012 05:32:02 UTC +00:00], ["user_id", 1]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Completed 201 Created in 94ms (Views: 1.2ms | ActiveRecord: 15.8ms)
+
+
+Started POST "/check_ins.json" for 127.0.0.1 at 2012-07-21 22:32:20 -0700
+Connecting to database specified by database.yml
+Processing by CheckInsController#create as JSON
+  Parameters: {"user"=>"1", "time_staying"=>"5", "place_id"=>"22", "place_name"=>"Chipotle", "place_lat"=>"49.5", "place_long"=>"84.5", "fee"=>"5.5"}
+WARNING: Can't verify CSRF token authenticity
+  [1m[36mPlace Load (1.2ms)[0m  [1mSELECT "places".* FROM "places" WHERE "places"."place_id" = '22' AND "places"."name" = 'Chipotle' AND "places"."lat" = '49.5' AND "places"."long" = '84.5' LIMIT 1[0m
+  [1m[35mUser Load (0.8ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", "1"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (27.0ms)[0m  INSERT INTO "check_ins" ("created_at", "fee", "place_id", "time_staying", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Sun, 22 Jul 2012 05:32:22 UTC +00:00], ["fee", #<BigDecimal:7fae23c7de30,'0.55E1',18(18)>], ["place_id", 3], ["time_staying", 5], ["updated_at", Sun, 22 Jul 2012 05:32:22 UTC +00:00], ["user_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Completed 201 Created in 173ms (Views: 1.4ms | ActiveRecord: 47.5ms)
+
+
+Started GET "/places" for 127.0.0.1 at 2012-07-21 22:32:31 -0700
+Processing by PlacesController#index as HTML
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places" 
+  Rendered places/index.html.erb within layouts/application (9.5ms)
+Completed 200 OK in 89ms (Views: 87.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /application.css - 304 Not Modified (13ms)
+
+
+Started GET "/assets/addresses.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /addresses.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/check_ins.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /check_ins.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /home.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/places.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /places.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/requests.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /requests.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/responses.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /responses.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /scaffolds.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /users.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /jquery.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/addresses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /addresses.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/check_ins.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /check_ins.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /home.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/places.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /places.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/requests.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /requests.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/responses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /responses.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /users.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /application.js - 304 Not Modified (8ms)
+
+
+Started GET "/places" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Processing by PlacesController#index as HTML
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places" [0m
+  Rendered places/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 37ms (Views: 35.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /addresses.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /places.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /requests.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /check_ins.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /responses.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /users.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:32 -0700
+Served asset /addresses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:33 -0700
+Served asset /check_ins.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:33 -0700
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:33 -0700
+Served asset /places.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:33 -0700
+Served asset /requests.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:33 -0700
+Served asset /responses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:33 -0700
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:33 -0700
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:34 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:34 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:34 -0700
+Served asset /addresses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:34 -0700
+Served asset /check_ins.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:34 -0700
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:34 -0700
+Served asset /places.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:34 -0700
+Served asset /requests.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:34 -0700
+Served asset /responses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:34 -0700
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:34 -0700
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/check_ins" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Processing by CheckInsController#index as HTML
+  [1m[35mCheckIn Load (0.4ms)[0m  SELECT "check_ins".* FROM "check_ins" 
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mPlace Load (0.4ms)[0m  SELECT "places".* FROM "places" WHERE "places"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "places".* FROM "places" WHERE "places"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places" WHERE "places"."id" = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "places".* FROM "places" WHERE "places"."id" = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "places".* FROM "places" WHERE "places"."id" = 3 LIMIT 1
+  Rendered check_ins/index.html.erb within layouts/application (20.2ms)
+Completed 200 OK in 30ms (Views: 27.0ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /check_ins.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /addresses.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /places.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /requests.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /responses.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /users.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /addresses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /check_ins.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /places.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /requests.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /responses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:35 -0700
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started DELETE "/check_ins/4" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Processing by CheckInsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"wYByNJlwH+u3W2HwCT1DGatvPWbCCN44WAy6kTWhGKA=", "id"=>"4"}
+  [1m[36mCheckIn Load (0.8ms)[0m  [1mSELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."id" = $1 LIMIT 1[0m  [["id", "4"]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mDELETE FROM "check_ins" WHERE "check_ins"."id" = $1[0m  [["id", 4]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Redirected to http://localhost:3000/check_ins
+Completed 302 Found in 4ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/check_ins" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Processing by CheckInsController#index as HTML
+  [1m[36mCheckIn Load (0.4ms)[0m  [1mSELECT "check_ins".* FROM "check_ins" [0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT "places".* FROM "places" WHERE "places"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "places".* FROM "places" WHERE "places"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT "places".* FROM "places" WHERE "places"."id" = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "places".* FROM "places" WHERE "places"."id" = 3 LIMIT 1[0m
+  Rendered check_ins/index.html.erb within layouts/application (7.3ms)
+Completed 200 OK in 15ms (Views: 13.5ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /addresses.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /check_ins.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /places.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /requests.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /responses.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /users.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /addresses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /check_ins.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /places.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /requests.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /responses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:41 -0700
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started DELETE "/check_ins/5" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Processing by CheckInsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"wYByNJlwH+u3W2HwCT1DGatvPWbCCN44WAy6kTWhGKA=", "id"=>"5"}
+  [1m[35mCheckIn Load (0.2ms)[0m  SELECT "check_ins".* FROM "check_ins" WHERE "check_ins"."id" = $1 LIMIT 1  [["id", "5"]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  DELETE FROM "check_ins" WHERE "check_ins"."id" = $1  [["id", 5]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/check_ins
+Completed 302 Found in 3ms (ActiveRecord: 1.5ms)
+
+
+Started GET "/check_ins" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Processing by CheckInsController#index as HTML
+  [1m[35mCheckIn Load (0.3ms)[0m  SELECT "check_ins".* FROM "check_ins" 
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places" WHERE "places"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "places".* FROM "places" WHERE "places"."id" = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT "places".* FROM "places" WHERE "places"."id" = 3 LIMIT 1
+  Rendered check_ins/index.html.erb within layouts/application (5.9ms)
+Completed 200 OK in 14ms (Views: 12.3ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /check_ins.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /places.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /requests.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /addresses.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /responses.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /users.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/addresses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /addresses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/check_ins.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /check_ins.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/places.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /places.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/requests.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /requests.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/responses.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /responses.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /users.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-07-21 22:32:43 -0700
+Served asset /application.js - 304 Not Modified (0ms)
