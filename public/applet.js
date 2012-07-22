@@ -79,7 +79,6 @@ function order_up(id){
     $('#address-name').html('<option>'+c.address_name+'</option>');
     $('#deliverer').html(c.user);
     $("#myModal").modal('show');
-    //post_to_url('requests/new', {id: id, user: user_id}, "get");
 }
 
 function submit_order(){
@@ -95,8 +94,7 @@ function submit_order(){
       }
     };
 
-    $.post('/requests.json', post_data);
-//    post_to_url('requests', post_data);
+    $.post('/requests.json', post_data, function(data){alert('your order has been sent')});
 }
 
 function post_to_url(path, params, method) {
