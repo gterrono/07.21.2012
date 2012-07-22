@@ -130,6 +130,8 @@ MapApplet = (function(){
 
 function order_up(id){
     c = JSON.parse($('#check-in-'+id).find('#json').html());
+    $('#order').val('');
+    $('#details').val('');
     $('#payment').val(c.fee);
     $('#modal-user').val(c.user_id);
     $('#modal-address').val(c.address_id);
@@ -146,7 +148,7 @@ function submit_order(){
     var post_data = {
       request: {
         order: $("#order").val(),
-        details: '',
+        details: $('#details').val(),
         payment: $("#payment").val(),
         user: $("#modal-user").val(),
         check_in: $("#modal-checkin").val(),
@@ -154,7 +156,7 @@ function submit_order(){
       }
     };
 
-    $.post('/requests.json', post_data, function(data){alert('your order has been sent')});
+    $.post('/requests.json', post_data, function(data){$('#notification').fadeIn(1000);});
 }
 
 function post_to_url(path, params, method) {
@@ -192,7 +194,7 @@ function update_time_staying_counters(){
 	var $elem = $("#time-staying-id"+checkin.id);
 	var timeLeft = (parseInt(checkin.posted) + parseInt(checkin.time_staying)) - time;
 	if(timeLeft < 0){
-	    $("#check-in-id"+checkin.id).fadeOut(20);
+	    $("#check-in-id"+checkin.id).fadeOut(1000);
 	} else {
 	    var s = new Date(timeLeft*1000).toTimeString().substring(3,8)
 	    $elem.html(s);
@@ -303,6 +305,7 @@ function displayNotification() {
 
 window.onload = function(){
     //$("#myModal").modal({backdrop: true});
+    $('.close').click(function(e){$(this).parent().fadeOut(1000);});
     update_time_staying_counters();
     setInterval(update_time_staying_counters, 1000);
     dispatch_checkins_request();
