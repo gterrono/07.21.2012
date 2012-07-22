@@ -40,7 +40,9 @@ class AddressesController < ApplicationController
   # POST /addresses
   # POST /addresses.json
   def create
-    @address = Address.new(params[:address])
+    @address = Address.new(:street_address => params[:address][:street_address],
+      :state => params[:address][:state], :zip => params[:address][:zip])
+    @address.user = User.find(params[:address][:user])
 
     respond_to do |format|
       if @address.save
