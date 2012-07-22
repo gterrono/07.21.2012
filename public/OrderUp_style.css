@@ -32,17 +32,25 @@
 #map-container{
 	padding: 20px;
 	width: 900px;
-	/* #c7001c */
 	border: 4px dashed green;
 	border-radius: 10px;
 	float: right;
 }
+
 
 #crazy-map{
 	height: 552px;
 	width: 900px;
 	border-radius: 10px;
 }
+
+#crazy-map img {
+  max-width: none;
+}
+
+#crazy-map label { 
+  width: auto; display:inline; 
+} 
 
 #newsfeed-title{
 	text-align: center;
