@@ -33,19 +33,6 @@
     <div id="newsfeed">
       <h2 id="newsfeed-title"> New Orders </h2>
       <div id="checkins">
-      <% @check_ins.each do |check_in| %>
-        <div class="newsfeed-item">
-          <div id="check-in-<%= check_in.id %>" class="hidden">
-            <%= check_in.to_json %>
-          </div>
-          <span class="item-title"><%= check_in.user.name %> is at <%= check_in.place.name %></span>
-          <br>
-          <br>
-          <span class="item-text item-time"><%= check_in.time_staying %> mins</span>
-          <button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up(<%= check_in.id %>)">OrderUp</button>
-          <span class="item-text item-price">$<%= check_in.fee %></span>
-        </div>
-      <% end %>
     </div></div>
   </div>
 
