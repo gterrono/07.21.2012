@@ -1,27 +1,41 @@
-#body-div{
-	position:relative;
-	z-index: 10;
-	height: 900px;
-	background: #333;
+#logo{
+	display: block;
+	width: 237px;
+	height: 81.75px;
+	padding-top: 50px;
+	margin: auto;
 }
 
 #newsfeed{
 	background: #DDD;
-	height: 800px;
-	z-index: 10;
+	height: 600px;
 	float: left;
 	width: 400px;
 	background-image:url('light_noise.png');
 	overflow: auto;
+	display: block;
+	position: absolute;
+	top: 160px;
+	left: 40px;
+	border-radius: 10px;
+}
+
+#map-container{
+	padding: 20px;
+	position: absolute;
+	left: 420px;
+	top: 160px;
+	background: black;
+	/* #c7001c */
+	border: 4px solid white;
+	border-radius: 10px;
 }
 
 #crazy-map{
-	height: 800px;
+	height: 560px;
 	width: 1000px;
-	margin: auto;
 	border-radius: 10px;
-	position: absolute;
-	left:400px;
+
 }
 
 #newsfeed-title{
@@ -30,23 +44,38 @@
 }
 
 .newsfeed-item{
-	height: 80px;
+	height: 60px;
 	margin: 20px;
-	padding: 20px;
+	padding: 10px;
 	background: white;
 	border-radius: 10px;
 }
 
-.newsfeed-text{
-	padding-top: auto;
-	padding-bottom: auto;
-	padding-left:10px;
-	line-height: 12px;
+.item-text{
+}
+
+.item-title{
+	font-size: 14px;
+
+}
+
+.item-time{
+	font-size: 20px;
+	float: left;
 }
 
 .order-button{
-	display: inline;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 	vertical-align: middle;
+	float: right;
+}
+
+.item-price{
+	font-size: 20px;
+	float: right;
+	padding-right: 100px;
 }
 
 .newfeed-button-div{
