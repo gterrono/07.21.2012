@@ -45,6 +45,7 @@ class RequestsController < ApplicationController
   # POST /requests
   # POST /requests.json
   def create
+    puts params.to_s
     @request = Request.new(:order => params[:request][:order],
       :details => params[:request][:details],
       :payment => params[:request][:payment])

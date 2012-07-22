@@ -1,5 +1,6 @@
 MapApplet = (function(){
     var loc, map;
+    var markers = {};
     var curOverlay = undefined;
 
     function init() {
@@ -31,12 +32,54 @@ MapApplet = (function(){
 	});
 	var marker = new google.maps.Marker(opts);
 	google.maps.event.addListener(marker, 'click', function(){openOverlay(overlay)});
+	markers[placeData.id] = marker;
     }
 
     function placeAllMarkers(data){
+	clearAllMarkers();
 	for(var i in data){
 	    MapApplet.addLocation(data[i]);
 	}
+    }
+
+    // function clearAllMarkers(){
+    // 	for(var i in markers){
+    // 	    markers[i].setMap(null);
+    // 	}
+    // 	markers = []; reset it
+    // }
+
+    function updateMarkers(newMarkerData){
+	console.log("new", newMarkerData);
+	console.log("old", markers);
+	var oldMarkers = $.extend({}, markers);
+	var newMarkers = [];
+	for(var i in newMarkerData){
+	    var markerData = newMarkerData[i];
+	    if(oldMarkers[markerData.id]){
+		delete oldMarkers[markerData.id];
+	    } else {
+		newMarkers.push(markerData);
+	    }
+	}
+	
+	// remove old markers
+	for(var key in oldMarkers){
+            if(oldMarkers.hasOwnProperty(key)){
+		removeMarker(key);
+	    }
+	}
+
+	// add new markers
+	for(var i in newMarkers){
+	    addLocation(newMarkers[i]);
+	}
+
+    }
+
+    function removeMarker(id){
+	markers[id].setMap(null);
+	delete markers[id];
     }
 
     function openOverlay(overlay){
@@ -65,14 +108,19 @@ MapApplet = (function(){
     return {
 	init: init,
 	addLocation: addLocation,
-	placeAllMarkers: placeAllMarkers
+	updateMarkers: updateMarkers
     };
 })();
 
 
 function order_up(id){
-    $("#modal-user").val(user_id);
+    c = JSON.parse($('#check-in-'+id).find('#json').html());
+    $('#payment').val(c.fee);
+    $('#modal-user').val(c.user_id);
+    $('#modal-address').val(c.address_id);
     $("#modal-checkin").val(id);
+    $('#address-name').html('<option>'+c.address_name+'</option>');
+    $('#deliverer').html(c.user);
     $("#myModal").modal('show');
     //post_to_url('requests/new', {id: id, user: user_id}, "get");
 }
@@ -82,14 +130,19 @@ function submit_order(){
     getNotificationPermission();
     setTimeout(displayNotification, 5000);
     var post_data = {
-	user: $("#modal-user").val(),
-	check_in: $("#modal-checkin").val(),
-	order: $("#modal-order").val(),
-	details: $("#modal-details").val(),
-	payment: $("#modal-payment").val()
+      request: {
+        order: $("#order").val(),
+        details: '',
+        payment: $("#payment").val(),
+        user: $("#modal-user").val(),
+        check_in: $("#modal-checkin").val(),
+        address: $('#modal-address').val()
+      }
     };
 
-    //post_to_url('requests', post_data);
+    $.post('/requests.json', post_data);
+//    post_to_url('requests', post_data);
+
 }
 
 function post_to_url(path, params, method) {
@@ -147,13 +200,17 @@ function dispatch_checkins_request(){
 function checkins_request_success(response){
     console.log("Response Success", response);
     var html = [];
+    //MapApplet.clearAllMarkers(data);
+    var goodData = [];
     for(var i in response){
-	if(checkin_valid(response[i]))
+	if(checkin_valid(response[i])){
 	    html.push(generate_checkin_listing(response[i]));
+	    goodData.push(response[i]);
+	}
     }
     $("#checkins").html(html.join(''));
+    MapApplet.updateMarkers(goodData);
     data = response;
-    MapApplet.placeAllMarkers(data);
     update_time_staying_counters();
 }
 
@@ -181,16 +238,19 @@ function generate_checkin_listing(checkin){
    // 	+ '</div>'
    // 	+ '</div>';
 
-    var listing = '<div id="check-in-id{0}" class="newsfeed-item">'
+    var listing = '<div id="check-in-{0}" class="newsfeed-item">'
+        + '<div id="json" class="hidden">'
+        + '{6}'
+        + '</div>'
         + '<span class="item-title">{1} is at {2}</span>'
         + '<br>'
         + '<br>'
         + '<span class="item-text item-time" id="time-staying-id{3}"></span>'
         + '<button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up({5})">OrderUp</button>'
         + '<span class="item-text item-price">${4}</span>'
-	+ '</div>'
+        + '</div>'
 
-    return listing.format(checkin.id, checkin.user, checkin.name, checkin.id, checkin.fee, checkin.id);
+    return listing.format(checkin.id, checkin.user, checkin.name, checkin.id, checkin.fee, checkin.id, JSON.stringify(checkin));
 }
 
 function checkin_valid(checkin){
@@ -217,7 +277,7 @@ function displayNotification() {
 	setTimeout(displayNotification, 5000);
     } else {
 	notification = window.webkitNotifications.createNotification(
-            'icon.png', 'Notification Title', 'Notification content...');
+            '', 'Your Order Request', 'Was accepted!');
 	notification.show();
     }
 };

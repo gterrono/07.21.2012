@@ -9,28 +9,28 @@
 
   <div class="field">
     <label for="order">What do you want?</label>
-    <textarea name="order"></textarea>
+    <textarea name="order" id="order"></textarea>
   </div>
   <div class="field">
     <label for="payment">Payment:</label>
-    <input type=text name="payment">
+    <input name="payment" id="payment"></input>
   </div>
   <div class="field">
     <label for="address-name">Deliver to:</label>
-    <select name="address-name">
+    <select name="address-name" id="address-name">
     </select>
     <a href="#">Add new</a>
   </div>
   <div class="field">
     <label>Your deliverer:</label>
     <img src="../../eric.jpeg">
-    <span class="user-name"></span>
-    <div class="rating">*****</div>
+    <span id="deliverer"></span>
+    <span id="rating">****</span>
   </div>
 
 
 </div>
 <div class="modal-footer">
   <a href="#" class="btn" data-dismiss="modal">Close</a>
-  <a onClick="javascript:submit_order()" class="btn btn-primary">Save changes</a>
+  <a onClick="javascript:submit_order()" class="btn btn-primary">Place Order</a>
 </div>

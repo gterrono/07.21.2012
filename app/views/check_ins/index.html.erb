@@ -35,6 +35,9 @@
       <div id="checkins">
       <% @check_ins.each do |check_in| %>
         <div class="newsfeed-item">
+          <div id="check-in-<%= check_in.id %>" class="hidden">
+            <%= check_in.to_json %>
+          </div>
           <span class="item-title"><%= check_in.user.name %> is at <%= check_in.place.name %></span>
           <br>
           <br>
