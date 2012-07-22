@@ -305,7 +305,7 @@ function displayNotification() {
 	setTimeout(displayNotification, 5000);
     } else {
 	notification = window.webkitNotifications.createNotification(
-            '', 'Your Order Request', 'Was accepted!');
+            '', 'OrderUp', 'Your Panda Express is coming up, courtesy of Eric Rosenberg.');
 	notification.show();
     }
 };
