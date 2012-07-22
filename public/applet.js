@@ -107,8 +107,12 @@ function post_to_url(path, params, method) {
     form.submit();
 }
 
+function getTime(){
+    return Math.floor(new Date().getTime()/1000);
+}
+
 function update_time_staying_counters(){
-    var time = Math.floor(new Date().getTime()/1000);
+    var time = getTime();
     for(var i in data){
 	var checkin = data[i];
 	var $elem = $("#time-staying-id"+checkin.id);
@@ -122,10 +126,64 @@ function update_time_staying_counters(){
     }
 }
 
+function dispatch_checkins_request(){
+    $.ajax({url:'check_ins.json', 
+	    contentType: 'text/json', 
+	    success: checkins_request_success,
+	    failure: function(errMsg){
+		console.log("Request Failed", errMsg);
+	    }});
+}
+
+function checkins_request_success(response){
+    console.log("Response Success", response);
+    var html = [];
+    for(var i in response){
+	if(checkin_valid(response[i]))
+	    html.push(generate_checkin_listing(response[i]));
+    }
+    $("#checkins").html(html.join(''));
+    update_time_staying_counters();
+}
+
+String.prototype.format = function() {
+    var formatted = this;
+    for(arg in arguments) {
+        formatted = formatted.replace("{" + arg + "}", arguments[arg]);
+    }
+    return formatted;
+};
+
+function generate_checkin_listing(checkin){
+   var listing = '<div id="check-in-id{0}" class="newsfeed-item">'
+	+ '<div id="table-div">'
+	+ '<table class="table">'
+	+ '<tr>'
+	+ '<td>{1} is at {2}</td>'
+	+ '</tr>'
+	+ '<tr>'
+	+ '<td id="time-staying-id{0}"></td>'
+	+ '<td>${3}</td>'
+	+ '<td><button class="btn btn-primary order-button" data-toggle="modal" onClick="javascript:order_up({1})">OrderUp</button></td>'
+	+ '</tr>'
+	+ '</table>'
+	+ '</div>'
+	+ '</div>';
+
+    return listing.format(checkin.id, checkin.user, checkin.name, checkin.fee);
+}
+
+function checkin_valid(checkin){
+    var time = getTime();
+    var timeLeft = (checkin.posted + checkin.time_staying) - time;
+    return timeLeft >= 0;
+}
+
 window.onload = function(){
     //$("#myModal").modal({backdrop: true});
     update_time_staying_counters();
     setInterval(update_time_staying_counters, 1000);
+    setInterval(dispatch_checkins_request, 2000);
     MapApplet.init()
     for(var i in data){
 	MapApplet.addLocation(data[i]);
