@@ -1,5 +1,6 @@
 MapApplet = (function(){
     var loc, map;
+    var markers = {};
     var curOverlay = undefined;
 
     function init() {
@@ -31,12 +32,54 @@ MapApplet = (function(){
 	});
 	var marker = new google.maps.Marker(opts);
 	google.maps.event.addListener(marker, 'click', function(){openOverlay(overlay)});
+	markers[placeData.id] = marker;
     }
 
     function placeAllMarkers(data){
+	clearAllMarkers();
 	for(var i in data){
 	    MapApplet.addLocation(data[i]);
 	}
+    }
+
+    // function clearAllMarkers(){
+    // 	for(var i in markers){
+    // 	    markers[i].setMap(null);
+    // 	}
+    // 	markers = []; reset it
+    // }
+
+    function updateMarkers(newMarkerData){
+	console.log("new", newMarkerData);
+	console.log("old", markers);
+	var oldMarkers = $.extend({}, markers);
+	var newMarkers = [];
+	for(var i in newMarkerData){
+	    var markerData = newMarkerData[i];
+	    if(oldMarkers[markerData.id]){
+		delete oldMarkers[markerData.id];
+	    } else {
+		newMarkers.push(markerData);
+	    }
+	}
+	
+	// remove old markers
+	for(var key in oldMarkers){
+            if(oldMarkers.hasOwnProperty(key)){
+		removeMarker(key);
+	    }
+	}
+
+	// add new markers
+	for(var i in newMarkers){
+	    addLocation(newMarkers[i]);
+	}
+
+    }
+
+    function removeMarker(id){
+	markers[id].setMap(null);
+	delete markers[id];
     }
 
     function openOverlay(overlay){
@@ -65,7 +108,7 @@ MapApplet = (function(){
     return {
 	init: init,
 	addLocation: addLocation,
-	placeAllMarkers: placeAllMarkers
+	updateMarkers: updateMarkers
     };
 })();
 
@@ -83,6 +126,8 @@ function order_up(id){
 
 function submit_order(){
     $("#myModal").modal('hide');
+    getNotificationPermission();
+    setTimeout(displayNotification, 5000);
     var post_data = {
       request: {
         order: $("#order").val(),
@@ -152,13 +197,17 @@ function dispatch_checkins_request(){
 function checkins_request_success(response){
     console.log("Response Success", response);
     var html = [];
+    //MapApplet.clearAllMarkers(data);
+    var goodData = [];
     for(var i in response){
-	if(checkin_valid(response[i]))
+	if(checkin_valid(response[i])){
 	    html.push(generate_checkin_listing(response[i]));
+	    goodData.push(response[i]);
+	}
     }
     $("#checkins").html(html.join(''));
+    MapApplet.updateMarkers(goodData);
     data = response;
-    MapApplet.placeAllMarkers(data);
     update_time_staying_counters();
 }
 
@@ -210,6 +259,25 @@ function checkin_valid(checkin){
     console.log(timeLeft);
     return timeLeft >= 0;
 }
+
+
+function getNotificationPermission(){
+    if (window.webkitNotifications.checkPermission() != 0) { // 0 is PERMISSION_ALLOWED
+	console.log("requesting...");
+	window.webkitNotifications.requestPermission();
+    }
+}
+
+function displayNotification() {
+    if (window.webkitNotifications.checkPermission() != 0) { // 0 is PERMISSION_ALLOWED
+	getNotificationPermission();
+	setTimeout(displayNotification, 5000);
+    } else {
+	notification = window.webkitNotifications.createNotification(
+            '', 'Your Order Request', 'Was accepted!');
+	notification.show();
+    }
+};
 
 window.onload = function(){
     //$("#myModal").modal({backdrop: true});
