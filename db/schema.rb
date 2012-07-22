@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120722024554) do
+ActiveRecord::Schema.define(:version => 20120722043231) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street_address"
@@ -37,12 +37,12 @@ ActiveRecord::Schema.define(:version => 20120722024554) do
   add_index "check_ins", ["user_id"], :name => "index_check_ins_on_user_id"
 
   create_table "places", :force => true do |t|
-    t.integer  "place_id"
     t.string   "name"
     t.decimal  "lat"
     t.decimal  "long"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "place_id"
   end
 
   create_table "requests", :force => true do |t|
