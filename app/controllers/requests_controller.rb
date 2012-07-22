@@ -10,7 +10,7 @@ class RequestsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @requests }
+      format.json { render json: "["+@requests.map {|r| r.to_json}.join(",")+"]"}
     end
   end
 
