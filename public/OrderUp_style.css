@@ -6,6 +6,10 @@
 	margin: auto;
 }
 
+.hidden{
+  display: none;
+}
+
 #container{
 	width: 1347px;
 	margin-right: auto;

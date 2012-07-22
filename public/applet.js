@@ -64,6 +64,7 @@ MapApplet = (function(){
 
 
 function order_up(id){
+    c = JSON.parse($('#check-in-'+id).html());
     $("#modal-user").val(user_id);
     $("#modal-checkin").val(id);
     $("#myModal").modal('show');
