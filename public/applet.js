@@ -79,6 +79,8 @@ function order_up(id){
 
 function submit_order(){
     $("#myModal").modal('hide');
+    getNotificationPermission();
+    setTimeout(displayNotification, 5000);
     var post_data = {
 	user: $("#modal-user").val(),
 	check_in: $("#modal-checkin").val(),
@@ -87,7 +89,7 @@ function submit_order(){
 	payment: $("#modal-payment").val()
     };
 
-    post_to_url('requests', post_data);
+    //post_to_url('requests', post_data);
 }
 
 function post_to_url(path, params, method) {
@@ -200,6 +202,25 @@ function checkin_valid(checkin){
     console.log(timeLeft);
     return timeLeft >= 0;
 }
+
+
+function getNotificationPermission(){
+    if (window.webkitNotifications.checkPermission() != 0) { // 0 is PERMISSION_ALLOWED
+	console.log("requesting...");
+	window.webkitNotifications.requestPermission();
+    }
+}
+
+function displayNotification() {
+    if (window.webkitNotifications.checkPermission() != 0) { // 0 is PERMISSION_ALLOWED
+	getNotificationPermission();
+	setTimeout(displayNotification, 5000);
+    } else {
+	notification = window.webkitNotifications.createNotification(
+            'icon.png', 'Notification Title', 'Notification content...');
+	notification.show();
+    }
+};
 
 window.onload = function(){
     //$("#myModal").modal({backdrop: true});
