@@ -4,6 +4,7 @@ class CheckInsController < ApplicationController
   # GET /check_ins.json
   def index
     @check_ins = CheckIn.all
+    @check_ins.sort! { |a,b| b.updated_at <=> a.updated_at }
     @places = Place.all
 
     respond_to do |format|
